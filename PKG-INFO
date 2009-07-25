@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: python-keyutils
+Version: 0.1
+Summary: keyutils bindings for Python
+Home-page: http://www.rpath.com
+Author: Mihai Ibanescu
+Author-email: misa@rpath.com
+License: CPL
+Description: UNKNOWN
+Platform: UNKNOWN
