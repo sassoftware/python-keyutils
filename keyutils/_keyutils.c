@@ -69,7 +69,7 @@ static PyObject * PyKeyutils_add_key(PyObject *self, PyObject *args)
     key = add_key(type, keystr, valstr, vallen, keyring);
     Py_END_ALLOW_THREADS
     if (key < 0) {
-        PyObject *error = Py_BuildValue("(is)", errno, "");
+        PyObject *error = Py_BuildValue("(is)", errno, strerror(errno));
         PyErr_SetObject(PyKeyutils_Error, error);
         return NULL;
     }
@@ -116,7 +116,7 @@ static PyObject * PyKeyutils_request_key(PyObject *self, PyObject *args)
             Py_INCREF(Py_None);
             return Py_None;
         }
-        PyObject *error = Py_BuildValue("(is)", errno, "");
+        PyObject *error = Py_BuildValue("(is)", errno, strerror(errno));
         PyErr_SetObject(PyKeyutils_Error, error);
         return NULL;
     }
@@ -146,7 +146,7 @@ static PyObject * PyKeyutils_read_key(PyObject *self, PyObject *args)
     vallen = keyctl_read_alloc(key, (void **)&valstr);
     Py_END_ALLOW_THREADS
     if (vallen < 0) {
-        PyObject *error = Py_BuildValue("(is)", errno, "");
+        PyObject *error = Py_BuildValue("(is)", errno, strerror(errno));
         PyErr_SetObject(PyKeyutils_Error, error);
         return NULL;
     }
