@@ -19,9 +19,11 @@
 
 import _keyutils
 for k, v in _keyutils.__dict__.items():
-    if k.startswith('E'):
+    if k.startswith('E') or k.startswith('KEY_SPEC_'):
         globals()[k] = v
 del k, v
+
+Error = _keyutils.error
 
 def add_key(key, value, keyring, keyType = "user"):
     return _keyutils.add_key(keyType, key, value, keyring)
