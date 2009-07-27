@@ -9,7 +9,7 @@ setup(
     author='Mihai Ibanescu',
     author_email='misa@rpath.com',
     url='http://www.rpath.com',
-    license='CPL',
+    license='LGPL',
     packages=['keyutils'],
     ext_modules=[
         Extension(
