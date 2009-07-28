@@ -26,6 +26,10 @@
 
 static PyObject *PyKeyutils_Error;
 
+#if PY_MINOR_VERSION < 5
+typedef int Py_ssize_t;
+#endif
+
 static PyObject * PyKeyutils_add_key(PyObject *self, PyObject *args)
 {
     Py_ssize_t vallen;
