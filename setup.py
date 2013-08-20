@@ -19,7 +19,7 @@
 from distutils.core import setup, Extension
 
 setup(
-    name='python-keyutils',
+    name='keyutils',
     version='0.1',
     description='keyutils bindings for Python',
     author='Mihai Ibanescu',
