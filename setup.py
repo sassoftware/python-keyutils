@@ -23,8 +23,8 @@ setup(
     version='0.1',
     description='keyutils bindings for Python',
     author='Mihai Ibanescu',
-    author_email='misa@rpath.com',
-    url='http://www.rpath.com',
+    author_email='mihai.ibanescu@sas.com',
+    url='https://bitbucket.org/rpathsync/python-keyutils',
     license='Apache 2.0',
     packages=['keyutils'],
     ext_modules=[

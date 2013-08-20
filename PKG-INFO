@@ -2,9 +2,9 @@ Metadata-Version: 1.0
 Name: python-keyutils
 Version: 0.1
 Summary: keyutils bindings for Python
-Home-page: http://www.rpath.com
+Home-page: https://bitbucket.org/rpathsync/python-keyutils
 Author: Mihai Ibanescu
-Author-email: misa@rpath.com
+Author-email: mihai.ibanescu@sas.com
 License: Apache 2.0
 Description: UNKNOWN
 Platform: UNKNOWN
