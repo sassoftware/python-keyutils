@@ -18,15 +18,28 @@
 
 from distutils.core import setup, Extension
 
+with file('README') as f:
+    long_description = ''.join(x
+            for x in f
+            if x and not x.startswith('#'))
+
 setup(
     name='keyutils',
     version='0.1',
     description='keyutils bindings for Python',
+    long_description=long_description,
     author='Mihai Ibanescu',
     author_email='mihai.ibanescu@sas.com',
     url='https://bitbucket.org/rpathsync/python-keyutils',
     license='Apache 2.0',
     packages=['keyutils'],
+    classifiers=[
+        "Topic :: Security",
+        "Operating System :: POSIX :: Linux",
+        ],
+    platforms=[
+        "Linux",
+        ],
     ext_modules=[
         Extension(
             'keyutils._keyutils', ['keyutils/_keyutils.c'], libraries=['keyutils'],
