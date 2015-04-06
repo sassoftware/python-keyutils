@@ -1,2 +1,6 @@
+Changes in 0.2 (2015-04-06):
+  * Ported to Cython
+  * Added new functions join_session_keyring, link, unlink, search, revoke
+
 Changes in 0.1 (2009-07-24):
   * Initial release

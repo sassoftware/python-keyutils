@@ -17,18 +17,51 @@
 
 
 import _keyutils
-for k, v in _keyutils.__dict__.items():
-    if k.startswith('E') or k.startswith('KEY_SPEC_'):
-        globals()[k] = v
+for k, v in _keyutils.constants.__dict__.items():
+    globals()[k] = v
 del k, v
+
+from errno import EINVAL, ENOMEM, EDQUOT, EINTR, EACCES
 
 Error = _keyutils.error
 
 def add_key(key, value, keyring, keyType = "user"):
     return _keyutils.add_key(keyType, key, value, keyring)
 
+
 def request_key(key, keyring, keyType = "user"):
-    return _keyutils.request_key(keyType, key, keyring)
+    try:
+        return _keyutils.request_key(keyType, key, None, keyring)
+    except Error as err:
+        if err.args[0] == _keyutils.constants.ENOKEY:
+            return None
+        raise
+
+
+def search(keyring, description, destination=0, keyType="user"):
+    try:
+        return _keyutils.search(keyring, keyType, description, destination)
+    except Error as err:
+        if err.args[0] == _keyutils.constants.ENOKEY:
+            return None
+        raise
+
 
 def read_key(keyId):
     return _keyutils.read_key(keyId)
+
+
+def join_session_keyring(name=None):
+    return _keyutils.join_session_keyring(name)
+
+
+def link(key, keyring):
+    return _keyutils.link(key, keyring)
+
+
+def unlink(key, keyring):
+    return _keyutils.unlink(key, keyring)
+
+
+def revoke(key):
+    return _keyutils.revoke(key)

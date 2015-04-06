@@ -25,12 +25,12 @@ with file('README') as f:
 
 setup(
     name='keyutils',
-    version='0.1',
+    version='0.2',
     description='keyutils bindings for Python',
     long_description=long_description,
     author='Mihai Ibanescu',
     author_email='mihai.ibanescu@sas.com',
-    url='https://bitbucket.org/rpathsync/python-keyutils',
+    url='https://github.com/sassoftware/python-keyutils',
     license='Apache 2.0',
     packages=['keyutils'],
     classifiers=[
