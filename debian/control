@@ -1,0 +1,28 @@
+Source: python-keyutils
+Maintainer: Mihai Ibanescu <mihai.ibanescu@sas.com>
+Section: python
+Priority: optional
+Build-Depends: python-all-dev (>= 2.6.6-3), debhelper (>= 7), libkeyutils-dev
+Standards-Version: 3.9.1
+
+
+
+Package: python-keyutils
+Architecture: any
+Depends: ${misc:Depends}, ${python:Depends}, ${shlibs:Depends} libkeyutils1
+Description: keyutils bindings for Python
+ python-keyutils is a set of python bindings for keyutils (available from
+ http://people.redhat.com/~dhowells/keyutils), a key management suite that
+ leverages the infrastructure provided by the Linux kernel for safely storing
+ and retrieving sensitive infromation in your programs.
+ .
+ The C extension module follows closely the C API (see add_key(2),
+ request_key(2), keyctl_read_alloc(2)).
+ .
+ Exceptions also follow the C API. The only notable difference is for
+ request_key: when the key is not present, None is returned, instead of raising
+ an exception (which is usually a more expensive operation).
+ .
+
+
+
