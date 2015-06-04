@@ -6,3 +6,4 @@ MANIFEST
 *.so
 *.egg-info
 *.swp
+*~
