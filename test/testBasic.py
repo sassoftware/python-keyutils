@@ -16,6 +16,7 @@
 
 
 import sys
+import time
 import unittest
 
 import keyutils
@@ -76,6 +77,20 @@ class BasicTest(unittest.TestCase):
         self.assertEqual(keyutils.search(parent, desc), None)
         keyutils.link(child, parent)
         self.assertEqual(keyutils.search(parent, desc), keyId)
+
+    def testTimeout(self):
+        desc = b"dummyKey"
+        value = b"dummyValue"
+        keyring = keyutils.KEY_SPEC_THREAD_KEYRING
+
+        # create key with 1 second timeout:
+        keyId = keyutils.add_key(desc, value, keyring)
+        keyutils.set_timeout(keyId, 1)
+
+        self.assertEqual(keyutils.request_key(desc, keyring), keyId)
+        time.sleep(1.5)
+        self.assertEqual(keyutils.request_key(desc, keyring), None)
+
 
 
 if __name__ == '__main__':

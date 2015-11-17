@@ -39,6 +39,7 @@ cdef extern from "keyutils.h" nogil:
     int c_link "keyctl_link"(int key, int keyring)
     int c_unlink "keyctl_unlink"(int key, int keyring)
     int c_revoke "keyctl_revoke"(int key)
+    int c_set_timeout "keyctl_set_timeout" (int key, int timeout)
 
 
 class error(Exception):
@@ -156,6 +157,16 @@ def revoke(int key):
     cdef int rc
     with nogil:
         rc = c_revoke(key)
+    if rc < 0:
+        PyErr_SetFromErrno(error)
+    else:
+        return None
+
+
+def set_timeout(int key, int timeout):
+    cdef int rc
+    with nogil:
+        rc = c_set_timeout(key, timeout)
     if rc < 0:
         PyErr_SetFromErrno(error)
     else:

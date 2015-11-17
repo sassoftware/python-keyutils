@@ -67,3 +67,8 @@ def unlink(key, keyring):
 
 def revoke(key):
     return _keyutils.revoke(key)
+
+
+def set_timeout(key, timeout):
+    """Set timeout in seconds."""
+    return _keyutils.set_timeout(key, timeout)
