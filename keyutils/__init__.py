@@ -15,8 +15,10 @@
 # limitations under the License.
 #
 
+from __future__ import absolute_import
 
-import _keyutils
+
+from . import _keyutils
 for k, v in _keyutils.constants.__dict__.items():
     globals()[k] = v
 del k, v
@@ -25,11 +27,11 @@ from errno import EINVAL, ENOMEM, EDQUOT, EINTR, EACCES
 
 Error = _keyutils.error
 
-def add_key(key, value, keyring, keyType = "user"):
+def add_key(key, value, keyring, keyType=b"user"):
     return _keyutils.add_key(keyType, key, value, keyring)
 
 
-def request_key(key, keyring, keyType = "user"):
+def request_key(key, keyring, keyType=b"user"):
     try:
         return _keyutils.request_key(keyType, key, None, keyring)
     except Error as err:
@@ -38,7 +40,7 @@ def request_key(key, keyring, keyType = "user"):
         raise
 
 
-def search(keyring, description, destination=0, keyType="user"):
+def search(keyring, description, destination=0, keyType=b"user"):
     try:
         return _keyutils.search(keyring, keyType, description, destination)
     except Error as err:

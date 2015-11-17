@@ -22,29 +22,29 @@ import keyutils
 
 class BasicTest(unittest.TestCase):
     def testSet(self):
-        keyDesc = "test:key:01"
-        keyVal = "key value with\0 some weird chars in it too"
+        keyDesc = b"test:key:01"
+        keyVal = b"key value with\0 some weird chars in it too"
         keyring = keyutils.KEY_SPEC_THREAD_KEYRING
 
         # Key not initialized; should get None
         keyId = keyutils.request_key(keyDesc, keyring)
-        self.failUnlessEqual(keyId, None)
+        self.assertEqual(keyId, None)
 
-        self.failUnlessRaises(keyutils.Error, keyutils.read_key, 12345L)
+        self.assertRaises(keyutils.Error, keyutils.read_key, 12345)
         try:
-            keyutils.read_key(12345L)
-        except keyutils.Error, e:
-            self.failUnlessEqual(e.args, (126, 'Required key not available'))
+            keyutils.read_key(12345)
+        except keyutils.Error as e:
+            self.assertEqual(e.args, (126, 'Required key not available'))
 
         keyutils.add_key(keyDesc, keyVal, keyring)
         keyId = keyutils.request_key(keyDesc, keyring)
 
         data = keyutils.read_key(keyId)
-        self.failUnlessEqual(data, keyVal)
+        self.assertEqual(data, keyVal)
 
     def testSession(self):
-        desc = "test:key:02"
-        val = "asdfasdfasdf"
+        desc = b"test:key:02"
+        val = b"asdfasdfasdf"
         session = keyutils.join_session_keyring()
         keyId = keyutils.add_key(desc, val, session)
         self.assertEqual(keyutils.search(keyutils.KEY_SPEC_SESSION_KEYRING,
@@ -54,7 +54,7 @@ class BasicTest(unittest.TestCase):
             desc), None)
 
     def testRevoke(self):
-        desc = "dummy"
+        desc = b"dummy"
         session = keyutils.join_session_keyring()
         self.assertEqual(keyutils.search(keyutils.KEY_SPEC_SESSION_KEYRING,
             desc), None)
@@ -68,10 +68,10 @@ class BasicTest(unittest.TestCase):
         keyutils.join_session_keyring()
 
     def testLink(self):
-        desc = "key1"
-        child = keyutils.add_key("ring1", None, keyutils.KEY_SPEC_PROCESS_KEYRING, "keyring")
-        parent = keyutils.add_key("ring2", None, keyutils.KEY_SPEC_PROCESS_KEYRING, "keyring")
-        keyId = keyutils.add_key(desc, "dummy", child)
+        desc = b"key1"
+        child = keyutils.add_key(b"ring1", None, keyutils.KEY_SPEC_PROCESS_KEYRING, b"keyring")
+        parent = keyutils.add_key(b"ring2", None, keyutils.KEY_SPEC_PROCESS_KEYRING, b"keyring")
+        keyId = keyutils.add_key(desc, b"dummy", child)
         self.assertEqual(keyutils.search(child, desc), keyId)
         self.assertEqual(keyutils.search(parent, desc), None)
         keyutils.link(child, parent)
