@@ -1,0 +1,26 @@
+language: python
+
+# Build inside virtualbox rather than docker containers. This means the build
+# is slower to start, but the upside is that sudo is supported. In particular
+# this means that we can use apt-get to install the keyutils dependency:
+sudo: true
+
+python:
+  - "2.6"
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+before_install:
+  # Installation step for non-python dependencies. The virtualenv is not
+  # activated at this point.
+  - sudo apt-get install libkeyutils-dev
+
+install:
+  # Installation step for the python package itself:
+  - python setup.py install
+
+script:
+  - python test/keyutils_test.py
