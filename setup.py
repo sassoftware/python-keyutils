@@ -18,10 +18,8 @@
 
 from distutils.core import setup, Extension
 
-with open('README') as f:
-    long_description = ''.join(x
-            for x in f
-            if x and not x.startswith('#'))
+with open('README.rst') as f:
+    long_description = f.read()
 
 setup(
     name='keyutils',
