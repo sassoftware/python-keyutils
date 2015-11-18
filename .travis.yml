@@ -1,10 +1,5 @@
 language: python
 
-# Build inside virtualbox rather than docker containers. This means the build
-# is slower to start, but the upside is that sudo is supported. In particular
-# this means that we can use apt-get to install the keyutils dependency:
-sudo: true
-
 python:
   - "2.6"
   - "2.7"
@@ -13,10 +8,17 @@ python:
   - "3.5"
   - "3.6"
 
-before_install:
-  # Installation step for non-python dependencies. The virtualenv is not
-  # activated at this point.
-  - sudo apt-get install libkeyutils-dev
+# Build inside docker containers instead of virtual machines. These are
+# faster, start quicker and support caching. Only downside: sudo is not
+# supported.
+sudo: false
+
+# Dependencies can be installed as follows. This works only for packages
+# whitelisted on https://github.com/travis-ci/apt-package-whitelist:
+addons:
+  apt:
+    packages:
+    - libkeyutils-dev
 
 install:
   # Installation step for the python package itself:
