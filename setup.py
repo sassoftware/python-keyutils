@@ -18,7 +18,7 @@
 
 from distutils.core import setup, Extension
 
-with file('README') as f:
+with open('README') as f:
     long_description = ''.join(x
             for x in f
             if x and not x.startswith('#'))
@@ -36,6 +36,11 @@ setup(
     classifiers=[
         "Topic :: Security",
         "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
         ],
     platforms=[
         "Linux",

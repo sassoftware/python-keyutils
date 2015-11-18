@@ -9,3 +9,6 @@ request_key(2), keyctl_read_alloc(2)).
 Exceptions also follow the C API. The only notable difference is for
 request_key: when the key is not present, None is returned, instead of raising
 an exception (which is usually a more expensive operation).
+
+Note that the function parameters are passed as bytes not strings! On python 3
+this usually requires an explicit `s.encode()` call.
