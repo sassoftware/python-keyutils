@@ -23,7 +23,7 @@ with open('README.rst') as f:
 
 setup(
     name='keyutils',
-    version='0.2',
+    version='0.3',
     description='keyutils bindings for Python',
     long_description=long_description,
     author='Mihai Ibanescu',

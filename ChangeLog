@@ -1,3 +1,7 @@
+Changes in 0.3 (2015-12-11):
+  * Merged in pull requests from Thomas G. for making the package compatible
+  with python 3
+
 Changes in 0.2 (2015-04-06):
   * Ported to Cython
   * Added new functions join_session_keyring, link, unlink, search, revoke
