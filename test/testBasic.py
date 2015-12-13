@@ -91,6 +91,16 @@ class BasicTest(unittest.TestCase):
         time.sleep(1.5)
         self.assertEqual(keyutils.request_key(desc, keyring), None)
 
+    def testClear(self):
+        desc = b"dummyKey"
+        value = b"dummyValue"
+        keyring = keyutils.KEY_SPEC_THREAD_KEYRING
+
+        key_id = keyutils.add_key(desc, value, keyring)
+
+        self.assertEqual(keyutils.request_key(desc, keyring), key_id)
+        keyutils.clear(keyring)
+        self.assertRaises(keyutils.Error, keyutils.read_key, key_id)
 
 
 if __name__ == '__main__':

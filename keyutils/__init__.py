@@ -70,5 +70,10 @@ def revoke(key):
 
 
 def set_timeout(key, timeout):
-    """Set timeout in seconds."""
+    """Set timeout in seconds (int)."""
     return _keyutils.set_timeout(key, timeout)
+
+
+def clear(keyring):
+    """Clear the keyring."""
+    return _keyutils.clear(keyring)
