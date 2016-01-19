@@ -17,8 +17,9 @@
 
 
 from distutils.core import setup, Extension
+import io
 
-with open('README.rst') as f:
+with io.open('README.rst', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
