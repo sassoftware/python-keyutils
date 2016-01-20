@@ -16,12 +16,10 @@
 #
 
 
-from codecs import getreader
+import io
 from distutils.core import setup, Extension
 
-utf8reader = getreader("utf-8")
-
-with utf8reader(open('README.rst', "rb")) as f:
+with io.open('README.rst', "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
