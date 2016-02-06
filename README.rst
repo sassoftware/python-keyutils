@@ -35,7 +35,7 @@ For example:
     assert keyutils.request_key(name, ring) == key_id
     assert keyutils.read_key(key_id) == value
 
-    # set timeout to 5 seconds, wait and then… it's gone:
+    # set timeout to 5 seconds, wait and then... it's gone:
     keyutils.set_timeout(key_id, 5)
     from time import sleep
     sleep(6)
