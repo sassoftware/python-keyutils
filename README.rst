@@ -42,4 +42,4 @@ For example:
     assert keyutils.request_key(name, ring) == None
 
 
-Further examples can be found in the ``tests`` subfolder.
+Further examples can be found in the ``test`` subfolder.
