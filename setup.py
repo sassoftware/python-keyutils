@@ -24,7 +24,7 @@ with io.open('README.rst', "r", encoding="utf-8") as f:
 
 setup(
     name='keyutils',
-    version='0.3',
+    version='0.4',
     description='keyutils bindings for Python',
     long_description=long_description,
     author='Mihai Ibanescu',
@@ -46,7 +46,9 @@ setup(
         ],
     ext_modules=[
         Extension(
-            'keyutils._keyutils', ['keyutils/_keyutils.c'], libraries=['keyutils'],
+            'keyutils._keyutils',
+            ['keyutils/_keyutils.c'],
+            libraries=['keyutils'],
         )
     ],
 )
