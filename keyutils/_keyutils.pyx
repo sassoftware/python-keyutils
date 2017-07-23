@@ -125,6 +125,20 @@ def read_key(int key):
         return obj
 
 
+def describe_key(int key):
+    cdef int size
+    cdef char *ptr
+    cdef bytes obj
+    with nogil:
+        size = c_describe_alloc(key, &ptr)
+    if size < 0:
+        PyErr_SetFromErrno(error)
+    else:
+        obj = PyBytes_FromStringAndSize(<char*>ptr, size)
+        stdlib.free(ptr)
+        return obj
+
+
 def join_session_keyring(name):
     cdef char *name_p
     cdef int rc
