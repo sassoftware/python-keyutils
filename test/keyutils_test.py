@@ -15,6 +15,7 @@
 #
 
 
+import os
 import sys
 import time
 import unittest
@@ -66,7 +67,30 @@ class BasicTest(unittest.TestCase):
             self.assertEqual(err.args[0], keyutils.EKEYREVOKED)
         else:
             self.fail("Expected keyutils.Error")
-        keyutils.join_session_keyring()
+
+        # It is convenient to use this test to verify that session_to_parent()
+        # is functional because at this point it is known that there is
+        # no session keyring available.
+
+        childpid = os.fork()
+        if childpid:
+            pid, exitcode = os.waitpid(childpid, 0)
+            self.assertEqual(childpid, pid)
+            self.assertTrue(
+                os.WIFEXITED(exitcode) and os.WEXITSTATUS(exitcode) == 0,
+                exitcode)
+        else:
+            rc = 1
+            try:
+                keyutils.join_session_keyring()
+                keyutils.session_to_parent()
+                rc = 0
+            finally:
+                os._exit(rc)
+
+        self.assertEqual(keyutils.search(keyutils.KEY_SPEC_SESSION_KEYRING,
+            desc), None)
+
 
     def testLink(self):
         desc = b"key1"
