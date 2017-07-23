@@ -38,6 +38,7 @@ cdef extern from "keyutils.h" nogil:
             char *description, int destination)
     int c_read_alloc "keyctl_read_alloc"(int key, void **bufptr)
     int c_join_session_keyring "keyctl_join_session_keyring"(char *name)
+    int c_session_to_parent "keyctl_session_to_parent"()
     int c_link "keyctl_link"(int key, int keyring)
     int c_unlink "keyctl_unlink"(int key, int keyring)
     int c_revoke "keyctl_revoke"(int key)
@@ -152,6 +153,16 @@ def join_session_keyring(name):
         PyErr_SetFromErrno(error)
     else:
         return rc
+
+
+def session_to_parent():
+    cdef int rc
+    with nogil:
+        rc = c_session_to_parent()
+    if rc < 0:
+        PyErr_SetFromErrno(error)
+    else:
+        return None
 
 
 def link(int key, int keyring):

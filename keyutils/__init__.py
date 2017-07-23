@@ -61,6 +61,10 @@ def join_session_keyring(name=None):
     return _keyutils.join_session_keyring(name)
 
 
+def session_to_parent():
+    return _keyutils.session_to_parent()
+
+
 def link(key, keyring):
     return _keyutils.link(key, keyring)
 
