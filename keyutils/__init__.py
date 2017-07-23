@@ -53,6 +53,10 @@ def read_key(keyId):
     return _keyutils.read_key(keyId)
 
 
+def describe_key(keyId):
+    return _keyutils.describe_key(keyId)
+
+
 def join_session_keyring(name=None):
     return _keyutils.join_session_keyring(name)
 
