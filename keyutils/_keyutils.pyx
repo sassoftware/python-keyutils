@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+from libc cimport stdlib
+
 cdef extern from "Python.h":
     object PyErr_SetFromErrno(exc)
     object PyBytes_FromStringAndSize(char *str, Py_ssize_t size)
@@ -41,6 +43,7 @@ cdef extern from "keyutils.h" nogil:
     int c_revoke "keyctl_revoke"(int key)
     int c_set_timeout "keyctl_set_timeout" (int key, int timeout)
     int c_clear "keyctl_clear" (int keyring)
+    int c_describe_alloc "keyctl_describe_alloc" (int key, char **bufptr)
 
 
 class error(Exception):
@@ -111,12 +114,29 @@ def search(int keyring, bytes key_type, bytes description, int destination):
 def read_key(int key):
     cdef int size
     cdef void *ptr
+    cdef bytes obj
     with nogil:
         size = c_read_alloc(key, &ptr)
     if size < 0:
         PyErr_SetFromErrno(error)
     else:
-        return PyBytes_FromStringAndSize(<char*>ptr, size)
+        obj = PyBytes_FromStringAndSize(<char*>ptr, size)
+        stdlib.free(ptr)
+        return obj
+
+
+def describe_key(int key):
+    cdef int size
+    cdef char *ptr
+    cdef bytes obj
+    with nogil:
+        size = c_describe_alloc(key, &ptr)
+    if size < 0:
+        PyErr_SetFromErrno(error)
+    else:
+        obj = PyBytes_FromStringAndSize(<char*>ptr, size)
+        stdlib.free(ptr)
+        return obj
 
 
 def join_session_keyring(name):
