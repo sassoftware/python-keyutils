@@ -49,12 +49,24 @@ def search(keyring, description, destination=0, keyType=b"user"):
         raise
 
 
+def update_key(key, value):
+    return _keyutils.update_key(key, value)
+
+
 def read_key(keyId):
     return _keyutils.read_key(keyId)
 
 
+def describe_key(keyId):
+    return _keyutils.describe_key(keyId)
+
+
 def join_session_keyring(name=None):
     return _keyutils.join_session_keyring(name)
+
+
+def session_to_parent():
+    return _keyutils.session_to_parent()
 
 
 def link(key, keyring):
@@ -72,6 +84,10 @@ def revoke(key):
 def set_timeout(key, timeout):
     """Set timeout in seconds (int)."""
     return _keyutils.set_timeout(key, timeout)
+
+
+def set_perm(key, perm):
+    return _keyutils.set_perm(key, perm)
 
 
 def clear(keyring):
