@@ -120,6 +120,34 @@ class BasicTest(unittest.TestCase):
         self.assertEqual(ktype, b"user")
         self.assertEqual(desc, kdesc)
 
+    def testUpdate(self):
+        desc = b"dummyKey"
+        value = b"dummyValue1"
+        keyring = keyutils.KEY_SPEC_THREAD_KEYRING
+
+        key_id = keyutils.add_key(desc, value, keyring)
+
+        self.assertEqual(b"dummyValue1", keyutils.read_key(key_id))
+        keyutils.update_key(key_id, b"dummyValue2")
+        self.assertEqual(b"dummyValue2", keyutils.read_key(key_id))
+
+    def testSetPerm(self):
+        desc = b"dummyKey"
+        value = b"dummyValue1"
+        keyring = keyutils.KEY_SPEC_THREAD_KEYRING
+
+        key_id = keyutils.add_key(desc, value, keyring)
+
+        ktype, _, _, kperm, kdesc = keyutils.describe_key(key_id).split(b';', 4)
+        kperm = int(kperm, base=16)
+        self.assertEqual(
+            keyutils.KEY_POS_READ, kperm & keyutils.KEY_POS_READ)
+        keyutils.set_perm(key_id, kperm - keyutils.KEY_POS_READ)
+
+        ktype, _, _, kperm, kdesc = keyutils.describe_key(key_id).split(b';', 4)
+        kperm = int(kperm, base=16)
+        self.assertEqual(0, kperm & keyutils.KEY_POS_READ)
+
 
 if __name__ == '__main__':
     sys.exit(unittest.main())
