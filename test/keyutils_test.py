@@ -85,11 +85,12 @@ class BasicTest(unittest.TestCase):
 
         # create key with 1 second timeout:
         keyId = keyutils.add_key(desc, value, keyring)
-        keyutils.set_timeout(keyId, 1)
-
         self.assertEqual(keyutils.request_key(desc, keyring), keyId)
-        time.sleep(1.5)
-        self.assertEqual(keyutils.request_key(desc, keyring), None)
+
+        keyutils.set_timeout(keyId, 1)
+        with self.assertRaises(keyutils.Error):
+            time.sleep(1.5)
+            self.assertEqual(keyutils.request_key(desc, keyring), None)
 
     def testClear(self):
         desc = b"dummyKey"
