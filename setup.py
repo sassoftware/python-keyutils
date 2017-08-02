@@ -32,7 +32,6 @@ setup(
     url='https://github.com/sassoftware/python-keyutils',
     license='Apache 2.0',
     packages=['keyutils'],
-    test_suite='test',
     classifiers=[
         "Topic :: Security",
         "Operating System :: POSIX :: Linux",
@@ -50,6 +49,8 @@ setup(
             'keyutils._keyutils',
             ['keyutils/_keyutils.c'],
             libraries=['keyutils'],
-        )
+        ),
     ],
+    setup_requires=["pytest-runner"],
+    tests_require=["pytest"],
 )
