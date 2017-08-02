@@ -17,7 +17,7 @@
 
 
 import io
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 
 with io.open('README.rst', "r", encoding="utf-8") as f:
     long_description = f.read()
@@ -32,6 +32,7 @@ setup(
     url='https://github.com/sassoftware/python-keyutils',
     license='Apache 2.0',
     packages=['keyutils'],
+    test_suite='test',
     classifiers=[
         "Topic :: Security",
         "Operating System :: POSIX :: Linux",
