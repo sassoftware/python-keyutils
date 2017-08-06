@@ -88,9 +88,14 @@ class BasicTest(unittest.TestCase):
         self.assertEqual(keyutils.request_key(desc, keyring), keyId)
 
         keyutils.set_timeout(keyId, 1)
-        with self.assertRaises(keyutils.Error):
-            time.sleep(1.5)
-            self.assertEqual(keyutils.request_key(desc, keyring), None)
+        time.sleep(1.5)
+        try:
+            keyId = keyutils.request_key(desc, keyring)
+        except keyutils.Error as err:
+            # https://patchwork.kernel.org/patch/5336901
+            self.assertEqual(err.args[0], keyutils.EKEYEXPIRED)
+            keyId = None
+        self.assertEqual(keyId, None)
 
     def testClear(self):
         desc = b"dummyKey"
