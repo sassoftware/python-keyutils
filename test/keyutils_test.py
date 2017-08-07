@@ -108,6 +108,18 @@ class BasicTest(unittest.TestCase):
         keyutils.clear(keyring)
         self.assertRaises(keyutils.Error, keyutils.read_key, key_id)
 
+    def testDescribe(self):
+        desc = b"dummyKey"
+        value = b"dummyValue"
+        keyring = keyutils.KEY_SPEC_THREAD_KEYRING
+
+        key_id = keyutils.add_key(desc, value, keyring)
+
+        ret = keyutils.describe_key(key_id)
+        ktype, _, _, kperm, kdesc = ret.split(b';', 4)
+        self.assertEqual(ktype, b"user")
+        self.assertEqual(desc, kdesc)
+
 
 if __name__ == '__main__':
     sys.exit(unittest.main())
