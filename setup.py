@@ -24,7 +24,7 @@ with io.open('README.rst', "r", encoding="utf-8") as f:
 
 setup(
     name='keyutils',
-    version='0.4',
+    version='0.5',
     description='keyutils bindings for Python',
     long_description=long_description,
     author='Mihai Ibanescu',
