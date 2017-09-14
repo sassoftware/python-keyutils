@@ -22,7 +22,11 @@ addons:
 
 install:
   # Installation step for the python package itself:
+  - pip install pytest
   - python setup.py install
+  # Note, when running via py.test, we have to prevent importing keyutils from
+  # current directory which doesn't contain the shared object:
+  - rm -r keyutils
 
 script:
-  - python test/keyutils_test.py
+  - py.test -v test/
