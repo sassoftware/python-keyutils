@@ -1,3 +1,4 @@
+# cython: language_level=2
 #
 # Copyright (c) SAS Institute Inc.
 #

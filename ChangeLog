@@ -1,3 +1,8 @@
+Changes in 0.6 (2019-02-01):
+  * Merge pull request #5 from coldfix/travis
+  * Added python 3.7 support
+  * Dropped python 2.6 support
+
 Changes in 0.4 (2016-11-17):
   * Pull request #7 from Thomas G. for adding a keyutils.clear()
   * Release process improvements: added tox support

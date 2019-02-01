@@ -47,7 +47,7 @@ setup(
     ext_modules=[
         Extension(
             'keyutils._keyutils',
-            ['keyutils/_keyutils.c'],
+            ['keyutils/_keyutils.pyx'],
             libraries=['keyutils'],
         ),
     ],
